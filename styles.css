@@ -123,12 +123,55 @@ header {
    display: flex;
    flex-direction: column;
    align-items: center;
-   backdrop-filter: blur(10px);
-   padding: 20px;
+   backdrop-filter: blur(12px) brightness(1.1);
+   padding: 25px;
    border-radius: 20px;
-   background: rgba(0, 77, 64, 0.4);
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   background: rgba(0, 77, 64, 0.25); /* Increased transparency */
+   box-shadow: 
+       inset 0 0 8px rgba(255, 255, 255, 0.15), /* Subtle inner glow */
+       0 4px 10px rgba(0, 0, 0, 0.3),          /* Soft shadow */
+       0 2px 4px rgba(255, 255, 255, 0.1);    /* Light reflection */
+   border: 1px solid rgba(255, 255, 255, 0.2); /* Transparent border */
+   position: relative;
+   overflow: hidden;
 }
+
+/* Glossy Overlay with Higher Transparency */
+.container::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 200%;
+   height: 200%;
+   background: linear-gradient(
+       45deg,
+       rgba(255, 255, 255, 0.3),
+       rgba(255, 255, 255, 0.1)
+   );
+   transform: rotate(-30deg);
+   opacity: 0.1; /* Increased transparency for the sheen */
+   animation: glossy-move 5s infinite linear;
+   z-index: 1;
+   pointer-events: none;
+}
+
+/* Content on top of gloss */
+.container > * {
+   position: relative;
+   z-index: 2;
+}
+
+/* Glossy Overlay Animation */
+@keyframes glossy-move {
+   from {
+       transform: translate(-100%, -100%) rotate(-30deg);
+   }
+   to {
+       transform: translate(100%, 100%) rotate(-30deg);
+   }
+}
+
 
 /* Typography */
 h1 {
